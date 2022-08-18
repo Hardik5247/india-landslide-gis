@@ -7,6 +7,7 @@ click==8.0.4
 contextvars==2.4
 cymem==2.0.6
 dataclasses==0.8
+distro==1.7.0
 en-core-web-trf @ https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.4.0/en_core_web_trf-3.4.0-py3-none-any.whl
 filelock==3.4.1
 Flask==2.0.3
@@ -44,6 +45,7 @@ spacy-legacy==3.0.9
 spacy-loggers==1.0.3
 spacy-transformers==1.1.7
 srsly==2.4.4
+tabula-py==2.3.0
 thinc==8.1.0
 tokenizers==0.12.1
 torch==1.10.2

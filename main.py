@@ -7,16 +7,28 @@ from flask_cors import CORS, cross_origin
 
 from pandas import DataFrame
 from spacy import displacy, load
+from tabula import read_pdf
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
+nlp = None
 
-nlp = load('en_core_web_trf')  # en_core_web_trf gives better results than en_core_web_sm
+
+@app.route('/extract/<string:path>', methods=['GET'])
+def pdf_extract(path):
+    data = read_pdf('./reports/2020/dcport1gsigovi824861.pdf', pages='all', stream=True, multiple_tables=True)
+    for i in range(len(data)):
+        data[i] = data[i].to_dict()
+    return jsonify(data)
 
 
 @app.route('/<int:pages>', methods=['GET'])
-def start(pages):
+def news_api(pages):
+    global nlp
+    if nlp is None:
+        nlp = load('en_core_web_trf')  # en_core_web_trf gives better results than en_core_web_sm
+
     data = []
     baseUrl = 'https://timesofindia.indiatimes.com/topic/landslides/news/{}'
 
